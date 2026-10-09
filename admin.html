@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CDNA Admin</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Barlow+Semi+Condensed:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div>
+        <h1 class="title">CDNA admin</h1>
+        <p class="subtitle" id="who">Sign in to award CDNAs and manage the roster</p>
+      </div>
+      <div class="spacer"></div>
+      <a href="./">Board</a>
+      <button class="btn" id="signout" type="button" hidden>Sign out</button>
+    </div>
+  </header>
+
+  <main id="app"></main>
+
+  <dialog id="ask" aria-labelledby="ask-title">
+    <form method="dialog" id="ask-form">
+      <div class="dlg-head">
+        <h2 id="ask-title"></h2>
+        <button class="x" type="button" value="cancel" data-cancel aria-label="Close">&times;</button>
+      </div>
+      <div class="dlg-body">
+        <p id="ask-msg"></p>
+        <label class="field" id="ask-field">
+          <span id="ask-label"></span>
+          <input class="input" id="ask-input" autocomplete="off">
+        </label>
+        <div class="actions">
+          <button class="btn" type="button" data-cancel>Cancel</button>
+          <button class="btn btn-primary" id="ask-ok" type="submit" value="ok"></button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>
