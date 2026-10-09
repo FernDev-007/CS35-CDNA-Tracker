@@ -114,7 +114,7 @@ main { max-width: 1280px; margin: 0 auto; padding: 20px; }
   justify-content: space-between;
   gap: 8px;
   padding: 12px 14px 10px;
-  border-bottom: 3px solid var(--ink);
+  border-bottom: 5px solid var(--class-color, var(--ink));   /* class color, set per column */
 }
 .class-head h2 { margin: 0; font: 600 1.45rem/1 var(--head); }
 .class-head .meta { color: var(--steel); font-size: 0.85rem; }
@@ -167,6 +167,20 @@ dialog {
   box-shadow: 0 20px 60px rgba(23, 32, 51, 0.35);
 }
 dialog::backdrop { background: rgba(23, 32, 51, 0.55); }
+/* Request window picks up the requester's class color once they've entered their email */
+dialog.in-class { border-top: 8px solid var(--class-color); }
+
+/* Class color dot (admin page) */
+.dot {
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--class-color, var(--ink));
+  box-shadow: inset 0 0 0 1px rgba(23, 32, 51, 0.25);   /* keeps silver and yellow visible on white */
+  vertical-align: 0.02em;
+}
 .dlg-head {
   display: flex;
   justify-content: space-between;
