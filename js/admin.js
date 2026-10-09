@@ -1,5 +1,5 @@
 import { db, configured, $, $$, esc, makeForm10, saveFile, setupNotice } from './shared.js';
-import { CLASS_YEARS } from './config.js';
+import { CLASS_YEARS, classColor } from './config.js';
 import { fmt } from './rules.js';
 
 const app = $('#app');
@@ -152,7 +152,7 @@ function renderAward() {
         ${CLASS_YEARS.map((y) => {
           const list = active.filter((p) => p.class_year === y);
           return `<fieldset data-year="${y}">
-            <legend>${y} <button class="btn-link" type="button" data-all="${y}">Select all</button></legend>
+            <legend><span><span class="dot" style="--class-color:${classColor(y)}"></span>${y}</span> <button class="btn-link" type="button" data-all="${y}">Select all</button></legend>
             <div class="opts">${list.map((p) => `
               <label data-name="${esc(fullName(p).toLowerCase())}">
                 <input type="checkbox" value="${p.id}"> ${esc(p.last_name)}, ${esc(p.first_name)}
@@ -245,7 +245,7 @@ function renderPeople() {
           <tr data-row="${esc((fullName(p) + ' ' + p.email).toLowerCase())}">
             <td>${esc(fullName(p))}</td>
             <td>${esc(p.email)}</td>
-            <td>${p.class_year}</td>
+            <td style="white-space:nowrap"><span class="dot" style="--class-color:${classColor(p.class_year)}"></span>${p.class_year}</td>
             <td class="num">${p.balance}</td>
             <td>${!p.active ? '<span class="pill">Removed</span>' : p.on_probation ? '<span class="pill warn">On probation</span>' : ''}</td>
             <td style="white-space:nowrap">
@@ -419,7 +419,7 @@ function renderHistory() {
           <tr>
             <td style="white-space:nowrap">${esc(when(l.created_at))}</td>
             <td>${esc(l.people.last_name)}, ${esc(l.people.first_name)}</td>
-            <td>${l.people.class_year}</td>
+            <td style="white-space:nowrap"><span class="dot" style="--class-color:${classColor(l.people.class_year)}"></span>${l.people.class_year}</td>
             <td>${KIND_LABEL[l.kind]}${l.kind === 'use' && refunded.has(l.id) ? ' <span class="pill">Refunded</span>' : ''}</td>
             <td class="num ${l.amount > 0 ? 'plus' : l.amount < 0 ? 'minus' : ''}">${l.amount > 0 ? '+' : ''}${l.amount || ''}</td>
             <td>${esc(detail(l))}</td>
