@@ -1,5 +1,5 @@
 import { db, configured, $, $$, esc, makeForm10, saveFile, setupNotice } from './shared.js';
-import { SQUADRON_NAME, CLASS_YEARS } from './config.js';
+import { SQUADRON_NAME, CLASS_YEARS, classColor } from './config.js';
 import { checkRequest, fmt, todayMountain } from './rules.js';
 
 const board = $('#board');
@@ -39,7 +39,7 @@ function renderBoard() {
           </li>`).join('')
       : `<li class="empty">${all.length ? 'No names match.' : 'No one in this class yet.'}</li>`;
     return `
-      <section class="class" aria-label="Class of ${year}">
+      <section class="class" aria-label="Class of ${year}" style="--class-color:${classColor(year)}">
         <div class="class-head">
           <h2>${year}</h2>
           <span class="meta">${all.length} cadets, ${total} CDNAs</span>
@@ -81,6 +81,7 @@ function unbusy(btn) {
 // Step 1: email
 function stepEmail(error = '') {
   title.textContent = 'Request a CDNA';
+  dialog.classList.remove('in-class');
   body.innerHTML = `
     <form id="f-email" novalidate>
       <label class="field">
@@ -106,6 +107,8 @@ function stepEmail(error = '') {
     if (err) { unbusy(btn); return stepEmail(`Something went wrong checking your email (${err.message}). Try again.`); }
     if (!data.found) return stepEmail("That email isn't on the roster. Check the spelling, or ask an admin to add you.");
     me = data;
+    dialog.style.setProperty('--class-color', classColor(me.class_year));
+    dialog.classList.add('in-class');
     stepDays();
   });
 }
